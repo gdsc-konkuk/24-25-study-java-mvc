@@ -13,4 +13,5 @@ public class CharacterEncodingFilter implements Filter {
         request.getServletContext().log("doFilter() 호출");
         chain.doFilter(request, response);
     }
+
 }
