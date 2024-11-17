@@ -1,5 +1,6 @@
 package com.interface21.webmvc.servlet.mvc.tobe;
 
+import com.interface21.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +22,12 @@ public class AnnotationHandlerMapping {
 
     public void initialize() {
         log.info("Initialized AnnotationHandlerMapping!");
+        handlerExecutions.put(new HandlerKey("/get-test", RequestMethod.GET), new HandlerExecution());
+        handlerExecutions.put(new HandlerKey("/post-test", RequestMethod.POST), new HandlerExecution());
     }
 
     public Object getHandler(final HttpServletRequest request) {
-        return null;
+        HandlerKey handlerKey = new HandlerKey(request.getRequestURI(), RequestMethod.valueOf(request.getMethod()));
+        return handlerExecutions.get(handlerKey);
     }
 }
