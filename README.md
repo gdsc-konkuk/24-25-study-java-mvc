@@ -21,11 +21,11 @@ git checkout 24YoonByungWook
 # 0단계 - Reflection, DI 학습 미션
 + [ ] study 디렉토리 안의 test를 아래 순서대로 모두 수행한다.
 + [ ] study/src/test/java/reflection 디렉토리 내부의 테스트를 수행한다.
-   + [ ] [Junit3TestRunner](study/src/test/java/reflection/Junit3TestRunner.java)
-   + [ ] [Junit4TestRunner](study/src/test/java/reflection/Junit4TestRunner.java)
-   + [ ] [ReflectionTest](study/src/test/java/reflection/ReflectionTest.java)
-   + [ ] [ReflectionsTest](study/src/test/java/reflection/ReflectionsTest.java)
-+ [ ] study/src/test/java/servlet 디렉토리 내부의 테스트를 수행한다.
+   + [x] [Junit3TestRunner](study/src/test/java/reflection/Junit3TestRunner.java)
+   + [x] [Junit4TestRunner](study/src/test/java/reflection/Junit4TestRunner.java)
+   + [x] [ReflectionTest](study/src/test/java/reflection/ReflectionTest.java)
+   + [x] [ReflectionsTest](study/src/test/java/reflection/ReflectionsTest.java)
++ [x] study/src/test/java/servlet 디렉토리 내부의 테스트를 수행한다.
 
 # 🚀 1단계 - @MVC 프레임워크 구현하기
 

@@ -15,9 +15,11 @@ class Stage0Test {
      */
     @Test
     void stage0() {
+        final var userDao = new UserDao();
+        final var userService = new UserService(userDao);
         final var user = new User(1L, "gugu");
 
-        final var actual = UserService.join(user);
+        final var actual = userService.join(user);
 
         assertThat(actual.getAccount()).isEqualTo("gugu");
     }

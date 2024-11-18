@@ -29,7 +29,7 @@ class Stage3Test {
          * UserService는 DIContainer에게 모든 제어 권한을 위임한 상태다.
          * DIContainer가 객체를 생성하고 관계를 설정하도록 구현해보자.
          */
-        final var userService = diContainer.getBean(UserService.class);
+        final UserService userService = diContainer.getBean(UserService.class);
 
         final var actual = userService.join(user);
 
