@@ -9,13 +9,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class AnnotationHandlerMappingTest {
+class ManaualHandlerMappingTest {
 
-    private AnnotationHandlerMapping handlerMapping;
+    private ManualHandlerMapping handlerMapping;
 
     @BeforeEach
     void setUp() {
-        handlerMapping = new AnnotationHandlerMapping("com.interface21.webmvc.servlet");
+        handlerMapping = new ManualHandlerMapping("samples");
         handlerMapping.initialize();
     }
 
