@@ -1,5 +1,6 @@
 package di.stage4.annotations;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,15 +11,20 @@ class DIContainer {
     private final Set<Object> beans;
 
     public DIContainer(final Set<Class<?>> classes) {
-        this.beans = Set.of();
+        this.beans = Set.of(classes);
     }
 
-    public static DIContainer createContainerForPackage(final String rootPackageName) {
-        return null;
+    public static DIContainer createContainerForPackage(final String rootPackageName) throws Exception {
+        return new DIContainer(ClassPathScanner.getAllClassesInPackage(rootPackageName));
     }
 
     @SuppressWarnings("unchecked")
     public <T> T getBean(final Class<T> aClass) {
+        for (Object bean : beans) {
+            if (aClass.isInstance(bean)) {
+                return (T) bean;
+            }
+        }
         return null;
     }
 }
