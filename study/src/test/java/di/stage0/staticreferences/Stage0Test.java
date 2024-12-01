@@ -4,6 +4,8 @@ import di.User;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 
 class Stage0Test {
 
@@ -15,9 +17,13 @@ class Stage0Test {
      */
     @Test
     void stage0() {
+        UserDao mockUserDao= mock(UserDaoImpl.class);
+        UserService mockUserService= new UserService(mockUserDao);
         final var user = new User(1L, "gugu");
 
-        final var actual = UserService.join(user);
+        // Mock 설정
+        doNothing().when(mockUserDao).insert(user);
+        final var actual = mockUserService.join(user);
 
         assertThat(actual.getAccount()).isEqualTo("gugu");
     }

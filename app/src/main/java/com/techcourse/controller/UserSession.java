@@ -5,7 +5,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.util.Optional;
 
-public class UserSession {
+public class
+UserSession {
 
     public static final String SESSION_KEY = "user";
 

@@ -13,6 +13,7 @@ class DIContainer {
 
     public DIContainer(final Set<Class<?>> classes) throws Exception {
         for (Class<?> clazz : classes) {
+            beans.add(clazz.newInstance());
         }
     }
 

@@ -1,7 +1,9 @@
 package di.stage4.annotations;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 스프링의 BeanFactory, ApplicationContext에 해당되는 클래스
@@ -9,9 +11,10 @@ import java.util.Set;
 class DIContainer {
 
     private final Set<Object> beans;
-
+    //왜 여기서 갑자기 classes가 0이 되는건지 모르겠음
     public DIContainer(final Set<Class<?>> classes) {
-        this.beans = Set.of(classes);
+        this.beans = new HashSet<>(classes);
+
     }
 
     public static DIContainer createContainerForPackage(final String rootPackageName) throws Exception {
