@@ -14,6 +14,14 @@ public class HandlerKey {
         this.requestMethod = requestMethod;
     }
 
+    /**
+     * AnnotationHandlerMapping 클래스 내의
+     * 핸들러 정상 등록 확인을 위한 확인용 메서드
+     */
+//    public RequestMethod getRequestMethod() {
+//        return requestMethod;
+//    }
+
     @Override
     public String toString() {
         return "HandlerKey{" +

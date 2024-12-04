@@ -1,6 +1,7 @@
 package di.stage3.context;
 
 import di.User;
+import di.stage0.staticreferences.UserDaoImpl;
 
 class UserService {
 
@@ -15,5 +16,7 @@ class UserService {
         return userDao.findById(user.getId());
     }
 
-    private UserService() {}
+    public UserService() {
+        userDao = new InMemoryUserDao();
+    }
 }
