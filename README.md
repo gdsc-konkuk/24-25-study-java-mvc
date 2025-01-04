@@ -43,3 +43,30 @@ git checkout 24YoonByungWook
 `ManualHandlerMapping`과 `AnnotationHandlerMapping` 둘 다 사용할 수 있어야 한다.
 - [x] `Controller`와 `HandlerExecution` 둘 다를 실행할 수 있다.
 - [x] `ModelAndView`를 적절하게 rendering 할 수 있다.
+
+## 🚀 2단계 - 점진적인 리팩터링
+
+### 기능 요구사항
+> Legacy MVC와 @MVC 통합하기
+
+interface 기반의 컨트롤러와 annotation 기반의 컨트롤러가 공존하는 상태로 정상 동작하도록 구현한다.
+- [ ] ControllerScanner 클래스에서 @Controller가 붙은 클래스를 찾을 수 있다.
+- [ ] HandlerMappingRegistry 클래스에서 HandlerMapping을 처리하도록 한다.
+- [ ] HandlerAdapterRegistry 클래스에서 HandlerAdapter를 처리하도록 한다.
+
+## 🚀 3단계 - JSON View 구현하기
+
+### 기능 요구사항
+화면에 대한 책임을 View가 가지게 하고, `JsonView`를 구현하여 REST API를 지원할 수 있도록 한다.
+- [ ] 힌트에서 제공한 UserController 컨트롤러가 json 형태로 응답을 반환한다.
+- [ ] 레거시 코드를 삭제하고 서버를 띄워도 정상 동작한다.
+
+#### JspView 구현
+- [ ] Jsp 반환을 JspView에서 처리한다.
+
+#### JsonView 구현
+- [ ] model의 객체를 json으로 변환하여 response body로 응답한다.
+
+### Legacy MVC 제거
+- [ ] app module의 모든 controller를 annotation 기반으로 변경한다.
+- [ ] asis 패키지의 레거시 코드를 삭제해도 정상 동작하도록 리팩터링한다.
