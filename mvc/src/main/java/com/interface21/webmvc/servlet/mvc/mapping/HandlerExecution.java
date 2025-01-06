@@ -1,4 +1,4 @@
-package com.interface21.webmvc.servlet.mvc.adapter;
+package com.interface21.webmvc.servlet.mvc.mapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,22 +14,22 @@ import java.lang.reflect.Method;
  * - 이 클래스는 HTTP 요청을 받아 해당하는 컨트롤러의 메서드를 실행하는 역할
  * - AnnotationHandlerMapping에서 제공하는 HandlerKey를 기반으로 동작
  */
-public class HandlerExecution implements Handler {
+public class HandlerExecution {
     private static final Logger log = LoggerFactory.getLogger(HandlerExecution.class);
 
-    private final Object controller;
+    private final Object handler;
     private final Method handlerMethod;
 
-    public HandlerExecution(Object controller, Method handlerMethod) {
-        this.controller = controller;
-        this.handlerMethod = handlerMethod;
+    public HandlerExecution(Object handler, Method method) {
+        this.handler = handler;
+        this.handlerMethod = method;
     }
 
     public ModelAndView handle(final HttpServletRequest request, final HttpServletResponse response) throws Exception {
         Object[] args = prepareMethodArguments(request, response);
 
         try {
-            Object result = handlerMethod.invoke(controller, args);
+            Object result = handlerMethod.invoke(handler, args);
             if (result instanceof ModelAndView) {
                 return (ModelAndView) result;
             }

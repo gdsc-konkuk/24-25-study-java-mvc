@@ -1,10 +1,11 @@
-package com.techcourse;
+package com.interface21.webmvc.servlet.mvc;
 
 import com.interface21.webmvc.servlet.ModelAndView;
 import com.interface21.webmvc.servlet.View;
-import com.interface21.webmvc.servlet.mvc.adapter.HandlerExecution;
-import com.interface21.webmvc.servlet.mvc.mapping.AnnotationHandlerMapping;
-import com.interface21.webmvc.servlet.mvc.mapping.ControllerScanner;
+import com.interface21.webmvc.servlet.mvc.adapter.HandlerAdapter;
+import com.interface21.webmvc.servlet.mvc.adapter.HandlerAdapterRegistry;
+import com.interface21.webmvc.servlet.mvc.mapping.HandlerMapping;
+import com.interface21.webmvc.servlet.mvc.mapping.HandlerMappingRegistry;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,39 +21,36 @@ public class DispatcherServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final Logger log = LoggerFactory.getLogger(DispatcherServlet.class);
 
-    private ManualHandlerMapping manualHandlerMapping;
-    private AnnotationHandlerMapping annotationHandlerMapping;
+    private final HandlerAdapterRegistry handlerAdapterRegistry;
+    private final HandlerMappingRegistry handlerMappingRegistry;
 
-    public DispatcherServlet() {
+    public DispatcherServlet(HandlerAdapterRegistry handlerAdapterRegistry, HandlerMappingRegistry handlerMappingRegistry) {
+        this.handlerAdapterRegistry = handlerAdapterRegistry;
+        this.handlerMappingRegistry = handlerMappingRegistry;
     }
 
     @Override
     public void init() {
-        annotationHandlerMapping = new AnnotationHandlerMapping("app.com.techcourse");
-        manualHandlerMapping = new ManualHandlerMapping();
+        handlerMappingRegistry.initialize();
+    }
 
-        manualHandlerMapping.initialize();
-        annotationHandlerMapping.initialize();
+    public void addHandlerMapping(HandlerMapping handlerMapping) {
+        handlerMappingRegistry.addHandlerMapping(handlerMapping);
+    }
+
+    public void addHandlerAdapter(HandlerAdapter handlerAdapter) {
+        handlerAdapterRegistry.addHandlerAdapter(handlerAdapter);
     }
 
     @Override
-    protected void service(final HttpServletRequest request, final HttpServletResponse response) throws ServletException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         log.debug("Method : {}, Request URI : {}", request.getMethod(), request.getRequestURI());
-        ControllerScanner controllerScanner = new ControllerScanner(new Object[] {"com.techcourse.controller"});
 
         try {
-            if(controllerScanner.isAnnotationPresent()) {
-                AnnotationHandlerMapping annotationHandlerMapping = new AnnotationHandlerMapping("com.techcourse.controller");
-                annotationHandlerMapping.initialize();
-
-                final var handlerExecution = (HandlerExecution) annotationHandlerMapping.getHandler(request);
-                final var modelAndView = handlerExecution.handle(request, response);
-                render(modelAndView, request, response);
-            } else {
-                final var controller = manualHandlerMapping.getHandler(request);
-                final var viewName = controller.execute(request, response);
-                move(viewName, request, response);
-            }
+            final Object handler = handlerMappingRegistry.getHandler(request);
+            final HandlerAdapter handlerAdapter = handlerAdapterRegistry.getHandlerAdapter(handler);
+            final ModelAndView modelAndView = handlerAdapter.handle(request, response, handler);
+            render(modelAndView, request, response);
         } catch (Throwable e) {
             log.error("Exception : {}", e.getMessage(), e);
             throw new ServletException(e.getMessage());
