@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class AnnotationHandlerMapping {
+public class AnnotationHandlerMapping implements HandlerMapping {
 
     private static final Logger log = LoggerFactory.getLogger(AnnotationHandlerMapping.class);
 
@@ -57,6 +57,13 @@ public class AnnotationHandlerMapping {
         }
     }
 
+    @Override
+    public boolean supports(final HttpServletRequest request){
+        String uri = request.getRequestURI();
+        RequestMethod method = RequestMethod.valueOf(request.getMethod());
+        return handlerExecutions.containsKey(new HandlerKey(uri, method));
+    }
+    @Override
     public Object getHandler(final HttpServletRequest request) {
         String uri = request.getRequestURI();
         RequestMethod requestMethod = RequestMethod.valueOf(request.getMethod());
