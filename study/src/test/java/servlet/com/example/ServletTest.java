@@ -28,7 +28,10 @@ class ServletTest {
 
         // expected를 0이 아닌 올바른 값으로 바꿔보자.
         // 예상한 결과가 나왔는가? 왜 이런 결과가 나왔을까?
-        assertThat(Integer.parseInt(response.body())).isEqualTo(0);
+
+        // shared counter 서블릿에서 이 카운터를 인스턴스 변수로 관리하기때문이다
+        // 서버는 여러 스레드에서 접근 가능하므로 서블릿에서 비즈니스 로직을 처리할 때 인스턴스 변수는 사용하지 않는다.
+        assertThat(Integer.parseInt(response.body())).isEqualTo(3);
     }
 
     @Test
@@ -50,6 +53,6 @@ class ServletTest {
 
         // expected를 0이 아닌 올바른 값으로 바꿔보자.
         // 예상한 결과가 나왔는가? 왜 이런 결과가 나왔을까?
-        assertThat(Integer.parseInt(response.body())).isEqualTo(0);
+        assertThat(Integer.parseInt(response.body())).isEqualTo(1);
     }
 }
