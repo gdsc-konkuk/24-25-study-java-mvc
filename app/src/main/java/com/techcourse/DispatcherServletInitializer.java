@@ -1,6 +1,10 @@
 package com.techcourse;
 
 import com.interface21.webmvc.servlet.mvc.DispatcherServlet;
+import com.interface21.webmvc.servlet.mvc.adapter.AnnotationHandlerAdapter;
+import com.interface21.webmvc.servlet.mvc.adapter.HandlerAdapterRegistry;
+import com.interface21.webmvc.servlet.mvc.mapping.AnnotationHandlerMapping;
+import com.interface21.webmvc.servlet.mvc.mapping.HandlerMappingRegistry;
 import jakarta.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,16 +22,17 @@ public class DispatcherServletInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(final ServletContext servletContext) {
-        final var dispatcherServlet = new DispatcherServlet();
+        final HandlerAdapterRegistry handlerAdapterRegistry = new HandlerAdapterRegistry();
+        final HandlerMappingRegistry handlerMappingRegistry = new HandlerMappingRegistry();
 
-        final var registration = servletContext.addServlet(DEFAULT_SERVLET_NAME, dispatcherServlet);
-        if (registration == null) {
-            throw new IllegalStateException("Failed to register servlet with name '" + DEFAULT_SERVLET_NAME + "'. " +
-                    "Check if there is another servlet registered under the same name.");
-        }
+        final var dispatcherServlet = new DispatcherServlet(handlerAdapterRegistry, handlerMappingRegistry);
 
-        registration.setLoadOnStartup(1);
-        registration.addMapping("/");
+        dispatcherServlet.addHandlerAdapter(new AnnotationHandlerAdapter());
+        dispatcherServlet.addHandlerMapping(new AnnotationHandlerMapping());
+
+        final var dispatcher = servletContext.addServlet("dispatcher", dispatcherServlet);
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/");
 
         log.info("Start AppWebApplication Initializer");
     }

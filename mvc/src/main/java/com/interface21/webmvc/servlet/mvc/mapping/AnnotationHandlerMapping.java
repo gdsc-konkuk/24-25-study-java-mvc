@@ -21,7 +21,7 @@ import java.util.Set;
  * 일단 현재까지는 AnnotationHandelrMappingTest에서 samples 패키지만 불러옴(TestController 존재)
  * Reflection으로 어노테이션에 맞는 함수를 불러와, HandlerExecution에 등록
  */
-public class AnnotationHandlerMapping {
+public class AnnotationHandlerMapping implements HandlerMapping{
 
     private static final Logger log = LoggerFactory.getLogger(AnnotationHandlerMapping.class);
 
