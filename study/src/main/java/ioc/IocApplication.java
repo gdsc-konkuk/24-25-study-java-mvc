@@ -21,14 +21,18 @@ public class IocApplication {
     }
 
     private static void xmlApplicationContext() {
-        final ApplicationContext context = new ClassPathXmlApplicationContext("exchange-rate-context.xml");
-        final ExchangeRateRenderer renderer = context.getBean("exchangeRateRenderer", ExchangeRateRenderer.class);
+        final ApplicationContext context =
+                new ClassPathXmlApplicationContext("exchange-rate-context.xml");
+        final ExchangeRateRenderer renderer =
+                context.getBean("exchangeRateRenderer", ExchangeRateRenderer.class);
         renderer.render();
     }
 
     private static void annotationApplicationContext() {
-        final ApplicationContext context = new AnnotationConfigApplicationContext(ExchangeRateConfiguration.class);
-        final ExchangeRateRenderer renderer = context.getBean("exchangeRateRenderer", ExchangeRateRenderer.class);
+        final ApplicationContext context =
+                new AnnotationConfigApplicationContext(ExchangeRateConfiguration.class);
+        final ExchangeRateRenderer renderer =
+                context.getBean("exchangeRateRenderer", ExchangeRateRenderer.class);
         renderer.render();
     }
 }

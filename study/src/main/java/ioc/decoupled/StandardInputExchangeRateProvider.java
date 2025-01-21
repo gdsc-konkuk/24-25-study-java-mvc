@@ -8,7 +8,7 @@ public class StandardInputExchangeRateProvider implements ExchangeRateProvider {
 
     @Override
     public double getExchangeRate() {
-//        return scanner.nextDouble();
+        //        return scanner.nextDouble();
         return 1300;
     }
 }

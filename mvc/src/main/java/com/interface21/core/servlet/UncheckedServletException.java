@@ -1,4 +1,4 @@
-package com.techcourse;
+package com.interface21.core.servlet;
 
 public class UncheckedServletException extends RuntimeException {
 

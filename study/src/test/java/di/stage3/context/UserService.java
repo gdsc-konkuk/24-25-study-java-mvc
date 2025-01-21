@@ -4,7 +4,7 @@ import di.User;
 
 class UserService {
 
-    private UserDao userDao;
+    private final UserDao userDao;
 
     public UserService(final UserDao userDao) {
         this.userDao = userDao;
@@ -14,6 +14,4 @@ class UserService {
         userDao.insert(user);
         return userDao.findById(user.getId());
     }
-
-    private UserService() {}
 }

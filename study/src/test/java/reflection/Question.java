@@ -21,8 +21,13 @@ public class Question {
         this(0, writer, title, contents, new Date(), 0);
     }
 
-    public Question(long questionId, String writer, String title, String contents, Date createdDate,
-                    int countOfComment) {
+    public Question(
+            long questionId,
+            String writer,
+            String title,
+            String contents,
+            Date createdDate,
+            int countOfComment) {
         this.questionId = questionId;
         this.writer = writer;
         this.title = title;
@@ -66,22 +71,40 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
-                "questionId=" + questionId +
-                ", writer='" + writer + '\'' +
-                ", title='" + title + '\'' +
-                ", contents='" + contents + '\'' +
-                ", createdDate=" + createdDate +
-                ", countOfComment=" + countOfComment +
-                '}';
+        return "Question{"
+                + "questionId="
+                + questionId
+                + ", writer='"
+                + writer
+                + '\''
+                + ", title='"
+                + title
+                + '\''
+                + ", contents='"
+                + contents
+                + '\''
+                + ", createdDate="
+                + createdDate
+                + ", countOfComment="
+                + countOfComment
+                + '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Question)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Question)) {
+            return false;
+        }
         Question question = (Question) o;
-        return questionId == question.questionId && countOfComment == question.countOfComment && Objects.equals(writer, question.writer) && Objects.equals(title, question.title) && Objects.equals(contents, question.contents) && Objects.equals(createdDate, question.createdDate);
+        return questionId == question.questionId
+                && countOfComment == question.countOfComment
+                && Objects.equals(writer, question.writer)
+                && Objects.equals(title, question.title)
+                && Objects.equals(contents, question.contents)
+                && Objects.equals(createdDate, question.createdDate);
     }
 
     @Override
